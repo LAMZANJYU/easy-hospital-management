@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/easy-online-hospital/sysUser")
+@RequestMapping("/api/easy-online-hospital/sysUser")
 public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
