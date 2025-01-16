@@ -16,14 +16,14 @@ public class JWTUtils {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         JwtBuilder jwtBuilder = Jwts.builder()
-                .signWith(SignatureAlgorithm.ES256, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .setClaims(claims)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 24L * 60 * 60 * 60 * 1000));
         return jwtBuilder.compact();
     }
 
-    public static Map<String, Object> checkToken(String token){
+    public static Claims parseToken(String token){
         if (token == null || token.isEmpty()) {
             throw new IllegalArgumentException("Token cannot be null or empty");
         }
