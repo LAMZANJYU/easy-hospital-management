@@ -2,6 +2,7 @@ package com.easy.hospital.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.easy.hospital.common.response.RespCode;
 import com.easy.hospital.common.response.ServiceException;
 import com.easy.hospital.common.utils.JWTUtils;
 import com.easy.hospital.dao.mapper.SysUserMapper;
@@ -16,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -36,20 +35,10 @@ public class SysUserServiceImpl implements SysUserService {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new ServiceException("400", "用户名或密码不能为空");
         }
-        password = DigestUtils.md5Hex(password + slat);
-        SysUser sysUser = sysUserRepository.getByUsernameAndPassword(username, password);
-        if (Objects.isNull(sysUser)) {
-            throw new ServiceException("400", "用户名或密码错误");
-        }
-        String token;
-        try {
-            token = JWTUtils.createToken(sysUser.getId());
-
-        } catch (Exception e) {
-            log.error("登录失败", e);
-            throw new ServiceException("500", "系统错误");
-        }
-        return token;
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", username);
+        map.put("password", DigestUtils.md5Hex(password + slat));
+        return JWTUtils.getToken(map);
     }
 
     @Override
