@@ -12,11 +12,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/easy-online-hospital/sysUser/*", "/register", "/public/**").permitAll() // 不校验的路径
-                .anyRequest().authenticated() // 其他路径需要认证
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 添加自定义过滤器
+        http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/api/**").permitAll()
+            .anyRequest().authenticated();
     }
 }
