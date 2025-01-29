@@ -9,4 +9,10 @@ import java.util.List;
 
 public interface DoctorService {
     PageInfo<DoctorOMSVO> list(DoctorListReq req);
+
+    void changeStatus(Long id, Integer status);
+
+    Doctor detail(Long id);
+
+    void deleted(Long id);
 }

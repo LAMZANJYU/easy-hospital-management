@@ -1,6 +1,7 @@
 package com.easy.hospital.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.easy.hospital.common.enums.DoctorStatusEnum;
 import com.easy.hospital.dao.mapper.DoctorMapper;
 import com.easy.hospital.dao.model.Department;
 import com.easy.hospital.dao.model.Doctor;
@@ -38,19 +39,25 @@ public class DoctorServiceImpl implements DoctorService {
         PageHelper.startPage(req.getPageNum(), req.getPageSize());
         List<Doctor> doctors = doctorRepository.listOnCondition(req);
         PageInfo<Doctor> pageInfo = new PageInfo<>(doctors);
-        List<Department> departments = departmentRepository.list();
-        Map<Long, String> departmentMap = departments.stream().collect(Collectors.toMap(Department::getId, Department::getDepartmentName));
-        List<Hospital> hospitals = hospitalRepository.list();
-        Map<Long, String> hospitalMap = hospitals.stream().collect(Collectors.toMap(Hospital::getId, Hospital::getHospitalName));
-        List<DoctorOMSVO> voList = doctors.stream().map(doctor -> {
-            DoctorOMSVO vo = new DoctorOMSVO();
-            BeanUtil.copyProperties(doctor, vo);
-            vo.setHospitalName(hospitalMap.get(doctor.getHospitalId()));
-            vo.setDepartmentName(departmentMap.get(doctor.getDepartmentId()));
-            return vo;
-        }).collect(Collectors.toList());
-        PageInfo<DoctorOMSVO> info = new PageInfo<>(voList);
-        info.setSize(pageInfo.getSize());
+        List<DoctorOMSVO> resList = BeanUtil.copyToList(pageInfo.getList(), DoctorOMSVO.class);
+        PageInfo<DoctorOMSVO> info = new PageInfo<>();
+        info.setList(resList);
+        info.setTotal(pageInfo.getTotal());
         return info;
+    }
+
+    @Override
+    public void changeStatus(Long id, Integer status) {
+        doctorRepository.updateStatusById(id, status);
+    }
+
+    @Override
+    public Doctor detail(Long id) {
+        return doctorRepository.getById(id);
+    }
+
+    @Override
+    public void deleted(Long id) {
+        doctorRepository.deleteLogic(id);
     }
 }

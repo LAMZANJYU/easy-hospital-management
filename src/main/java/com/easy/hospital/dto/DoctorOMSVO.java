@@ -7,6 +7,4 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class DoctorOMSVO extends Doctor {
-    private String hospitalName;
-    private String departmentName;
 }

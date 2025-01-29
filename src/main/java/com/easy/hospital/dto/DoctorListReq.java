@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class DoctorListReq {
     private String doctorName;
-    private Long hospitalId;
-    private Long departmentId;
+    private String hospitalName;
+    private String departmentName;
     private Integer pageNum = 1;
     private Integer pageSize = 10;
 }
