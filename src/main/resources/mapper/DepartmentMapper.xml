@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.easy.hospital.dao.mapper.DepartmentMapper">
 
+    <select id="listOnCondition" resultType="com.easy.hospital.dto.DepartmentVO">
+        select td.id as id,
+               td.department_name as departmentName,
+               td.status as status,
+               th.hospital_name as hospitalName
+        from t_department td
+                 left join t_hospital th on td.hospital_id = th.id
+        <where>
+            <if test="name != null and name != ''">
+                and td.department_name like concat('%', #{name}, '%')
+            </if>
+            <if test="hospitalName != null and hospitalName != ''">
+                and th.hospital_name like concat('%', #{hospitalName}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

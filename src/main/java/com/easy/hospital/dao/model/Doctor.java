@@ -25,4 +25,6 @@ public class Doctor extends BaseModel{
     private Long departmentId;
     @TableField("department_name")
     private String departmentName;
+    @TableField("verify_image")
+    private String verifyImage;
 }
