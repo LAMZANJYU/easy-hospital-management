@@ -15,4 +15,6 @@ public interface DoctorService {
     Doctor detail(Long id);
 
     void deleted(Long id);
+
+    void saveOrUpdate(Doctor doctor);
 }

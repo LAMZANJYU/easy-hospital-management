@@ -46,4 +46,10 @@ public class DoctorOMSController {
         doctorService.deleted(id);
         return RespUtils.success();
     }
+
+    @PostMapping("/saveOrUpdate")
+    public RespResult<Void> saveOrUpdate(@RequestBody Doctor doctor){
+        doctorService.saveOrUpdate(doctor);
+        return RespUtils.success();
+    }
 }

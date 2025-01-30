@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -59,5 +60,14 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void deleted(Long id) {
         doctorRepository.deleteLogic(id);
+    }
+
+    @Override
+    public void saveOrUpdate(Doctor doctor) {
+        if (Objects.isNull(doctor.getId())) {
+            doctorRepository.save(doctor);
+        } else {
+            doctorRepository.updateById(doctor);
+        }
     }
 }
