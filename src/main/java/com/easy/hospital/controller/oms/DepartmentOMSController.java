@@ -20,12 +20,12 @@ public class DepartmentOMSController {
     private DepartmentService departmentService;
 
     @PostMapping("/list")
-    public RespResult<PageInfo<DepartmentVO>> list(DepartmentListReq req) {
+    public RespResult<PageInfo<DepartmentVO>> list(@RequestBody DepartmentListReq req) {
         return RespUtils.success(departmentService.list(req));
     }
 
     @PostMapping("/saveOrUpdate")
-    public RespResult<Void> saveOrUpdate(Department department) {
+    public RespResult<Void> saveOrUpdate(@RequestBody Department department) {
         departmentService.saveOrUpdate(department);
         return RespUtils.success();
     }
