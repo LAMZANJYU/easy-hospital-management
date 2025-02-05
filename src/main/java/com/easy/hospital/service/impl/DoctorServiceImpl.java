@@ -100,4 +100,20 @@ public class DoctorServiceImpl implements DoctorService {
                 .map(RecommendDoctorVO::ofDoctor)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public PageInfo<RecommendDoctorVO> listDoctor(DoctorWXListReq req) {
+        DoctorListReq listReq = new DoctorListReq()
+                .setDoctorName(req.getSearch())
+                .setPageNum(req.getPage())
+                .setPageSize(req.getPageSize());
+        PageHelper.startPage(listReq.getPageNum(), listReq.getPageSize());
+        List<Doctor> doctors = doctorRepository.listOnCondition(listReq);
+        PageInfo<Doctor> pageInfo = new PageInfo<>(doctors);
+        List<RecommendDoctorVO> collect = doctors.stream().map(RecommendDoctorVO::ofDoctor).collect(Collectors.toList());
+        PageInfo<RecommendDoctorVO> resultInfo = new PageInfo<>();
+        resultInfo.setList(collect);
+        resultInfo.setTotal(pageInfo.getTotal());
+        return resultInfo;
+    }
 }

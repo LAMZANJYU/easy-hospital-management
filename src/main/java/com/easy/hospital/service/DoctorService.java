@@ -1,10 +1,7 @@
 package com.easy.hospital.service;
 
 import com.easy.hospital.dao.model.Doctor;
-import com.easy.hospital.dto.DoctorListReq;
-import com.easy.hospital.dto.DoctorLoginReq;
-import com.easy.hospital.dto.DoctorOMSVO;
-import com.easy.hospital.dto.RecommendDoctorVO;
+import com.easy.hospital.dto.*;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -23,4 +20,6 @@ public interface DoctorService {
     String login(DoctorLoginReq req);
 
     List<RecommendDoctorVO> recommendDoctor();
+
+    PageInfo<RecommendDoctorVO> listDoctor(DoctorWXListReq req);
 }
