@@ -4,6 +4,7 @@ import com.easy.hospital.common.response.RespResult;
 import com.easy.hospital.common.response.RespUtils;
 import com.easy.hospital.dao.model.Doctor;
 import com.easy.hospital.dto.DoctorListReq;
+import com.easy.hospital.dto.DoctorLoginReq;
 import com.easy.hospital.dto.DoctorOMSVO;
 import com.easy.hospital.service.DoctorService;
 import com.github.pagehelper.PageInfo;
@@ -51,5 +52,10 @@ public class DoctorOMSController {
     public RespResult<Void> saveOrUpdate(@RequestBody Doctor doctor){
         doctorService.saveOrUpdate(doctor);
         return RespUtils.success();
+    }
+
+    @PostMapping("/login")
+    public RespResult<String> login(@RequestBody DoctorLoginReq req) {
+        return RespUtils.success(doctorService.login(req));
     }
 }

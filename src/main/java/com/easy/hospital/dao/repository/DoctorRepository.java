@@ -31,4 +31,11 @@ public class DoctorRepository extends ServiceImpl<DoctorMapper, Doctor> {
         doctor.setIsDeleted(1);
         updateById(doctor);
     }
+
+    public Doctor getByPhoneAndPassword(String phone, String password) {
+        QueryWrapper<Doctor> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.eq("password", password);
+        return getOne(wrapper);
+    }
 }

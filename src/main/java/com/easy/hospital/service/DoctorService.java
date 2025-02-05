@@ -2,6 +2,7 @@ package com.easy.hospital.service;
 
 import com.easy.hospital.dao.model.Doctor;
 import com.easy.hospital.dto.DoctorListReq;
+import com.easy.hospital.dto.DoctorLoginReq;
 import com.easy.hospital.dto.DoctorOMSVO;
 import com.github.pagehelper.PageInfo;
 
@@ -17,4 +18,6 @@ public interface DoctorService {
     void deleted(Long id);
 
     void saveOrUpdate(Doctor doctor);
+
+    String login(DoctorLoginReq req);
 }

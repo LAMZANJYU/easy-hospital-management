@@ -35,6 +35,11 @@ public class SysUserServiceImpl implements SysUserService {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new ServiceException("400", "用户名或密码不能为空");
         }
+        // admin 管理员密码 admin
+        SysUser sysUser = sysUserRepository.getByUsernameAndPassword(username, DigestUtils.md5Hex(password + slat));
+        if (Objects.isNull(sysUser)){
+            throw new ServiceException("400", "用户名或密码错误");
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("password", DigestUtils.md5Hex(password + slat));

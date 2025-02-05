@@ -27,4 +27,8 @@ public class Doctor extends BaseModel{
     private String departmentName;
     @TableField("verify_image")
     private String verifyImage;
+    @TableField("password")
+    private String password;
+    @TableField("phone")
+    private String phone;
 }
