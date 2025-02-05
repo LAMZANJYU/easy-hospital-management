@@ -1,23 +1,16 @@
 package com.easy.hospital.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.easy.hospital.common.enums.DoctorStatusEnum;
+import cn.hutool.core.collection.CollectionUtil;
 import com.easy.hospital.common.response.ServiceException;
 import com.easy.hospital.common.utils.JWTUtils;
 import com.easy.hospital.dao.mapper.DoctorMapper;
-import com.easy.hospital.dao.model.Department;
 import com.easy.hospital.dao.model.Doctor;
-import com.easy.hospital.dao.model.Hospital;
-import com.easy.hospital.dao.model.SysUser;
 import com.easy.hospital.dao.repository.DepartmentRepository;
 import com.easy.hospital.dao.repository.DoctorRepository;
 import com.easy.hospital.dao.repository.HospitalRepository;
-import com.easy.hospital.dto.DoctorListReq;
-import com.easy.hospital.dto.DoctorLoginReq;
-import com.easy.hospital.dto.DoctorOMSVO;
-import com.easy.hospital.dto.LoginReq;
+import com.easy.hospital.dto.*;
 import com.easy.hospital.service.DoctorService;
-import com.easy.hospital.service.SysUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -97,5 +87,17 @@ public class DoctorServiceImpl implements DoctorService {
         map.put("phone", phone);
         map.put("password", DigestUtils.md5Hex(password + SALT));
         return JWTUtils.getToken(map);
+    }
+
+    @Override
+    public List<RecommendDoctorVO> recommendDoctor() {
+        List<Doctor> doctors = doctorRepository.listAllDoctor();
+        if (CollectionUtil.isEmpty(doctors)){
+            return Collections.emptyList();
+        }
+        return doctors.subList(0, Math.min(doctors.size(), 10))
+                .stream()
+                .map(RecommendDoctorVO::ofDoctor)
+                .collect(Collectors.toList());
     }
 }

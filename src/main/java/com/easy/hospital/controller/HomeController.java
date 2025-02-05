@@ -12,13 +12,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/wx")
+@RequestMapping("/api/wx/home")
 public class HomeController {
     @Resource
     private HomeBannerService homeBannerService;
 
     //首页轮播图
-    @GetMapping("/swpiers")
+    @GetMapping("/swiper")
     public RespResult<List<HomeBanner>> getHomeBanner() {
         return RespUtils.success(homeBannerService.getHomeBanner());
     }

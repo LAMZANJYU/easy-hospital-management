@@ -1,7 +1,6 @@
 package com.easy.hospital.dao.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easy.hospital.dao.mapper.DoctorMapper;
 import com.easy.hospital.dao.model.Doctor;
@@ -37,5 +36,12 @@ public class DoctorRepository extends ServiceImpl<DoctorMapper, Doctor> {
         wrapper.eq("phone", phone);
         wrapper.eq("password", password);
         return getOne(wrapper);
+    }
+
+    public List<Doctor> listAllDoctor() {
+        QueryWrapper<Doctor> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", 1)
+                .eq("is_deleted", 0);
+        return list(wrapper);
     }
 }

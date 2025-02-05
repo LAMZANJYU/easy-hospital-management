@@ -2,6 +2,7 @@ package com.easy.hospital.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easy.hospital.dto.RecommendDoctorVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -31,4 +32,10 @@ public class Doctor extends BaseModel{
     private String password;
     @TableField("phone")
     private String phone;
+    @TableField("image_url")
+    private String imageUrl;
+    @TableField("star")
+    private Double star;
+    @TableField("title")
+    private String title;
 }
