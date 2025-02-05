@@ -20,4 +20,10 @@ public class Hospital {
     private String latitude;
     @TableField("info")
     private String info;
+    @TableField("address")
+    private String address;
+    @TableField("image_url")
+    private String imageUrl;
+    @TableField("star")
+    private Double star;
 }

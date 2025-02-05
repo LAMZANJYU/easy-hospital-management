@@ -15,6 +15,7 @@ public class HospitalRepository extends ServiceImpl<HospitalMapper, Hospital> {
     public List<Hospital> listOnCondition(HospitalListReq req) {
         QueryWrapper<Hospital> wrapper = new QueryWrapper<>();
         wrapper.like(StringUtils.isNoneBlank(req.getName()), "hospital_name", req.getName());
+        wrapper.eq(req.getStatus() != null, "status", req.getStatus());
         return list(wrapper);
     }
 
