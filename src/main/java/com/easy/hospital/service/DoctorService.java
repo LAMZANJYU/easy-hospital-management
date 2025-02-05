@@ -22,4 +22,6 @@ public interface DoctorService {
     List<RecommendDoctorVO> recommendDoctor();
 
     PageInfo<RecommendDoctorVO> listDoctor(DoctorWXListReq req);
+
+    RecommendDoctorVO doctorDeatil(Long id);
 }

@@ -28,4 +28,9 @@ public class DoctorController {
     public RespResult<PageInfo<RecommendDoctorVO>> listDoctor(@RequestBody DoctorWXListReq req) {
         return RespUtils.success(doctorService.listDoctor(req));
     }
+
+    @GetMapping("/detail")
+    public RespResult<RecommendDoctorVO> detail(@RequestParam Long id) {
+        return RespUtils.success(doctorService.doctorDeatil(id));
+    }
 }

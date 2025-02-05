@@ -116,4 +116,9 @@ public class DoctorServiceImpl implements DoctorService {
         resultInfo.setTotal(pageInfo.getTotal());
         return resultInfo;
     }
+
+    @Override
+    public RecommendDoctorVO doctorDeatil(Long id) {
+        return RecommendDoctorVO.ofDoctor(doctorRepository.getById(id));
+    }
 }
